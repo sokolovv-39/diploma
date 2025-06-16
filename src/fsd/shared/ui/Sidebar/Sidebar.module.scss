@@ -1,0 +1,19 @@
+.wrapper {
+  width: max-content;
+  box-shadow: 4px 4px 8px 0px rgba(34, 60, 80, 0.2);
+  padding: 20px 24px;
+  border-right: 1px solid #1472f4;
+  .ul {
+    display: flex;
+    flex-direction: column;
+    .li {
+      list-style-type: none;
+      .text {
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+    }
+  }
+}

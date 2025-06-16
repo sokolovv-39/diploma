@@ -1,0 +1,18 @@
+.wrapper {
+  position: relative;
+  margin: 0 var(--margin-width);
+  display: flex;
+  gap: 20px;
+  .mathfield {
+    flex: 1;
+    margin-top: 17px;
+  }
+  .windows {
+    position: absolute;
+    top: 26px;
+    right: 31px;
+    display: flex;
+    gap: 15px;
+    flex-direction: column;
+  }
+}

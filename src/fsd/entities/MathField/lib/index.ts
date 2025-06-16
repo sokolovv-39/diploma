@@ -1,0 +1,1 @@
+export { useCustomPlaceholder } from "./main";

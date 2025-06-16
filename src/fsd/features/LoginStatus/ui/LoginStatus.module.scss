@@ -1,0 +1,33 @@
+.wrapper {
+  display: flex;
+  gap: 7px;
+  align-items: center;
+  .emailExit {
+    display: flex;
+    gap: 11px;
+    flex-direction: column;
+    button {
+      background-color: transparent;
+      border: none;
+      outline: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      margin-right: 0;
+      margin-left: auto;
+      gap: 7px;
+      font-size: 16px;
+    }
+  }
+  .logo {
+    width: 68px;
+    height: 68px;
+    border-radius: 50%;
+    background-color: #ff00c8;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 44px;
+    color: white;
+  }
+}

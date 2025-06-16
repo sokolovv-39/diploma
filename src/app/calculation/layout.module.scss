@@ -1,0 +1,25 @@
+.wrapper {
+  .menu {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: 51px 51px;
+    button {
+      background-color: transparent;
+      outline: none;
+      cursor: pointer;
+      border: none;
+      border-bottom: 1px solid #1472f4;
+      border-right: 1px solid #1472f4;
+      font-size: 20px;
+    }
+    button:first-child {
+      background-color: rgba(34, 162, 249, 0.3);
+    }
+    button:nth-child(3n) {
+      border-right: 0;
+    }
+    button:hover {
+      background-color: rgba(34, 162, 249, 0.1);
+    }
+  }
+}
