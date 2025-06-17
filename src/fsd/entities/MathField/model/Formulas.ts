@@ -4,7 +4,7 @@ export const formulas: SidebarItemsType = [
   {
     id: "Form-factor",
     text: "Фактор формы",
-    latex: "f\\coloneq\\frac{l_{d}}{h_{\\text{ср}}}",
+    latex: "f\\coloneq\\frac{l}{h_{\\text{ср}}}",
   },
   {
     text: "Средняя толщина полосы",
@@ -113,7 +113,7 @@ export const formulas: SidebarItemsType = [
     text: "Взаимосвязь деформаций",
     id: "Form-factor",
     latex:
-      "\\frac{h_{1}}{h_{0}}\\frac{b_{1}}{b_{0}}\\frac{l_{1}}{l_{0}}:=\\eta\\xi\\lambda\\coloneq1",
+      "\\frac{h_{1}}{h_{0}}\\frac{b_{1}}{b_{0}}\\frac{l_{1}}{l_{0}}\\coloneq\\eta\\xi\\lambda\\coloneq1",
   },
   {
     text: "Формулы для расчета углов захвата",
@@ -241,14 +241,12 @@ export const formulas: SidebarItemsType = [
       {
         text: "Усилие прокатки",
         id: "Form-factor",
-        isCalcAvail: false,
         latex:
           "\\frac{h_\\gamma}{h_1}\\coloneq {\\{\\frac{1+\\sqrt{1+(\\delta^2 -1)(\\frac{h_0}{h_1})}}{\\delta + 1}\\}}^{\\frac{1}{\\delta}} \\\\ " +
           "P\\coloneq\\sigma_T^*bl_d\\frac{2h_1}{\\Delta h(\\delta -1)}\\frac{h_\\gamma}{h_1}[\\frac{h_\\gamma^\\delta}{h_1}-1]",
       },
       {
         text: "Среднее контактное давление",
-        isCalcAvail: false,
         id: "Form-factor",
         latex:
           "\\frac{h_\\gamma}{h_1}\\coloneq {\\{\\frac{1+\\sqrt{1+(\\delta^2 -1)(\\frac{h_0}{h_1})}}{\\delta + 1}\\}}^{\\frac{1}{\\delta}} \\\\ " +
@@ -256,13 +254,11 @@ export const formulas: SidebarItemsType = [
       },
       {
         text: "Учет натяжения",
-        isCalcAvail: false,
         id: "Form-factor",
         latex: "p_{ср.н}\\coloneq p_{ср}[1-\\frac{q_0+q_q}{2p_{ср}}]",
       },
       {
         text: "Узкие полосы",
-        isCalcAvail: false,
         id: "Form-factor",
         latex:
           "n_в\\coloneq 0,67+0,15\\frac{b_{ср}}{l_d} - 0,017\\frac{b_{ср}^2}{l_d} \\\\ " +
@@ -276,7 +272,6 @@ export const formulas: SidebarItemsType = [
     nested: [
       {
         text: "Среднее контактное давление",
-        isCalcAvail: false,
         id: "Form-factor",
         latex:
           "p_{ср}\\coloneq\\sigma_T^*\\{1+\\frac{Rd}{2h_{ср}}[f_\\sigma-\\alpha(\\frac{1}{3}+\\frac{\\alpha}{4f_\\sigma})]\\}",

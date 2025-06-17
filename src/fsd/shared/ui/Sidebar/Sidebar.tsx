@@ -93,7 +93,6 @@ const DropdownItem = ({
         {item.nested ? (
           <CaretSVG direction={isOpen ? "bottom" : "right"} />
         ) : null}
-        {item.isCalcAvail && 1}
       </div>
       {item.nested && isOpen && (
         <SidebarDropdown

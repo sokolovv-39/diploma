@@ -4,14 +4,7 @@ import "mathlive/fonts.css";
 import "mathlive";
 import { MathfieldElement } from "mathlive";
 import "@cortex-js/compute-engine";
-import {
-  Dispatch,
-  FormEvent,
-  SetStateAction,
-  useEffect,
-  useRef,
-  useState,
-} from "react";
+import { Dispatch, FormEvent, SetStateAction, useEffect, useRef } from "react";
 import { ComputeEngine } from "@cortex-js/compute-engine";
 import { Latex } from "../../../shared/lib";
 import classes from "./MathField.module.scss";
@@ -45,10 +38,21 @@ export function MathField({
     const formattedLatex = Latex.toggleDispLines(latex, false);
     const exprs = formattedLatex.split(/(\\\\|\\quad)/);
     const recalcExprs = exprs.map((expr) => {
-      if (!expr.includes(":=") && expr.includes("=")) {
-        const left = expr.split("=")[0];
+      if (expr.includes("=")) {
+        let left = expr.split("=")[0];
         const recalc = ce.parse(left).N();
         return left + "=" + recalc.value;
+      } else if (expr.includes("\\coloneq")) {
+        const [lhsRaw, rhsRaw] = expr.split("\\coloneq").map((s) => s.trim());
+        const lhsExpr = ce.parse(lhsRaw);
+        if (lhsExpr.symbol == null) {
+          throw new Error(`Невозможно извлечь имя символа из ${lhsRaw}`);
+        }
+        const rhs = ce.parse(rhsRaw).evaluate();
+        ce.defineSymbol(lhsExpr.symbol, {
+          value: rhs,
+        });
+        return expr;
       } else {
         ce.parse(expr).evaluate();
         return expr;
