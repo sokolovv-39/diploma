@@ -241,12 +241,14 @@ export const formulas: SidebarItemsType = [
       {
         text: "Усилие прокатки",
         id: "Form-factor",
+        isCalcAvail: false,
         latex:
           "\\frac{h_\\gamma}{h_1}\\coloneq {\\{\\frac{1+\\sqrt{1+(\\delta^2 -1)(\\frac{h_0}{h_1})}}{\\delta + 1}\\}}^{\\frac{1}{\\delta}} \\\\ " +
           "P\\coloneq\\sigma_T^*bl_d\\frac{2h_1}{\\Delta h(\\delta -1)}\\frac{h_\\gamma}{h_1}[\\frac{h_\\gamma^\\delta}{h_1}-1]",
       },
       {
         text: "Среднее контактное давление",
+        isCalcAvail: false,
         id: "Form-factor",
         latex:
           "\\frac{h_\\gamma}{h_1}\\coloneq {\\{\\frac{1+\\sqrt{1+(\\delta^2 -1)(\\frac{h_0}{h_1})}}{\\delta + 1}\\}}^{\\frac{1}{\\delta}} \\\\ " +
@@ -254,11 +256,13 @@ export const formulas: SidebarItemsType = [
       },
       {
         text: "Учет натяжения",
+        isCalcAvail: false,
         id: "Form-factor",
         latex: "p_{ср.н}\\coloneq p_{ср}[1-\\frac{q_0+q_q}{2p_{ср}}]",
       },
       {
         text: "Узкие полосы",
+        isCalcAvail: false,
         id: "Form-factor",
         latex:
           "n_в\\coloneq 0,67+0,15\\frac{b_{ср}}{l_d} - 0,017\\frac{b_{ср}^2}{l_d} \\\\ " +
@@ -272,6 +276,7 @@ export const formulas: SidebarItemsType = [
     nested: [
       {
         text: "Среднее контактное давление",
+        isCalcAvail: false,
         id: "Form-factor",
         latex:
           "p_{ср}\\coloneq\\sigma_T^*\\{1+\\frac{Rd}{2h_{ср}}[f_\\sigma-\\alpha(\\frac{1}{3}+\\frac{\\alpha}{4f_\\sigma})]\\}",

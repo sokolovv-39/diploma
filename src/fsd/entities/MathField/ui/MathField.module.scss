@@ -1,4 +1,18 @@
 .mathfield {
   border: none;
   outline: none;
+  position: relative;
+}
+.mathfield::part(virtual-keyboard-toggle) {
+  position: absolute;
+  right: 328px;
+  top: 10px;
+  scale: 2;
+}
+
+.mathfield::part(menu-toggle) {
+  position: absolute;
+  right: 270px;
+  top: 10px;
+  scale: 2;
 }

@@ -6,11 +6,14 @@
     "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "type-check": "tsc --noEmit"
   },
   "dependencies": {
     "@cortex-js/compute-engine": "^0.28.0",
     "mathlive": "^0.105.3",
+    "mobx": "^6.13.7",
+    "mobx-react-lite": "^4.1.0",
     "next": "15.3.3",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",

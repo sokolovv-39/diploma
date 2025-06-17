@@ -8,11 +8,22 @@
     margin-top: 17px;
   }
   .windows {
+    width: 200px;
     position: absolute;
     top: 26px;
     right: 31px;
     display: flex;
     gap: 15px;
+    align-items: center;
     flex-direction: column;
+  }
+  .hintMathfield {
+    position: fixed;
+    bottom: 28px;
+    right: 33px;
+    margin: 0;
+    border-radius: 27px;
+    padding: 2px 13px;
+    font-size: 24px;
   }
 }

@@ -11,17 +11,33 @@ type SidebarProps = {
   items: SidebarItemsType;
   level: number;
   callback: CallbackFnType;
+  hoverCallback: CallbackFnType;
 };
 
-export function Sidebar({ items, level, callback }: SidebarProps) {
+export function Sidebar({
+  items,
+  level,
+  callback,
+  hoverCallback,
+}: SidebarProps) {
   return (
     <div className={classes.wrapper}>
-      <SidebarDropdown items={items} level={level} callback={callback} />
+      <SidebarDropdown
+        items={items}
+        level={level}
+        callback={callback}
+        hoverCallback={hoverCallback}
+      />
     </div>
   );
 }
 
-function SidebarDropdown({ items, level = 0, callback }: SidebarProps) {
+function SidebarDropdown({
+  items,
+  level = 0,
+  callback,
+  hoverCallback,
+}: SidebarProps) {
   const styles: CSSProperties = {
     gap: level === 0 ? "20px" : "10px",
     marginTop: level === 0 ? "" : "10px",
@@ -36,21 +52,29 @@ function SidebarDropdown({ items, level = 0, callback }: SidebarProps) {
       className={classes.ul}
     >
       {items.map((el, i) => (
-        <DropdownItem key={i} item={el} level={level} callback={callback} />
+        <DropdownItem
+          key={i}
+          item={el}
+          level={level}
+          callback={callback}
+          hoverCallback={hoverCallback}
+        />
       ))}
     </ul>
   );
 }
 
-function DropdownItem({
+const DropdownItem = ({
   item,
   level,
   callback,
+  hoverCallback,
 }: {
   item: SidebarItemsType[number];
   level: number;
   callback: CallbackFnType;
-}) {
+  hoverCallback: CallbackFnType;
+}) => {
   const [isOpen, setIsOpen] = useState(false);
   return (
     <li className={classes.li}>
@@ -60,14 +84,20 @@ function DropdownItem({
           if (item.nested) setIsOpen(!isOpen);
           else callback(item.latex);
         }}
+        onMouseEnter={() => {
+          if (item.latex) hoverCallback(item.latex);
+        }}
+        onMouseLeave={() => hoverCallback("")}
       >
         {item.text}
         {item.nested ? (
           <CaretSVG direction={isOpen ? "bottom" : "right"} />
         ) : null}
+        {item.isCalcAvail && 1}
       </div>
       {item.nested && isOpen && (
         <SidebarDropdown
+          hoverCallback={hoverCallback}
           items={item.nested}
           level={level + 1}
           callback={callback}
@@ -75,4 +105,4 @@ function DropdownItem({
       )}
     </li>
   );
-}
+};

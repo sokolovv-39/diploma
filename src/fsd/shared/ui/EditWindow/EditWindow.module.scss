@@ -1,8 +1,12 @@
 .wrapper {
-  width: 146px;
-  text-align: center;
+  width: 100%;
   border-radius: 26px;
-  padding: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 73px;
+  flex-direction: column;
+
   h1 {
     font-size: 19px;
   }

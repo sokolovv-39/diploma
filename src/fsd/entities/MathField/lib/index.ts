@@ -1,1 +1,2 @@
-export { useCustomPlaceholder } from "./main";
+export { useCustomPlaceholder } from "./hooks";
+export { getUninitSyms } from "./utils";

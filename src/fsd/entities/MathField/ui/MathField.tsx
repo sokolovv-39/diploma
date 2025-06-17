@@ -4,17 +4,32 @@ import "mathlive/fonts.css";
 import "mathlive";
 import { MathfieldElement } from "mathlive";
 import "@cortex-js/compute-engine";
-import { FormEvent, useEffect, useRef, useState } from "react";
+import {
+  Dispatch,
+  FormEvent,
+  SetStateAction,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import { ComputeEngine } from "@cortex-js/compute-engine";
 import { Latex } from "../../../shared/lib";
 import classes from "./MathField.module.scss";
-import { useCustomPlaceholder } from "../lib";
+import { getUninitSyms, useCustomPlaceholder } from "../lib";
+import { formulas } from "../model";
+import { SidebarItemsType } from "@/fsd/shared";
 
 MathfieldElement.soundsDirectory = "/sounds/";
 MathfieldElement.decimalSeparator = ",";
 const ce = new ComputeEngine();
 
-export function MathField({ formula }: { formula: string }) {
+export function MathField({
+  formula,
+  setAllFormulas,
+}: {
+  formula: string;
+  setAllFormulas: Dispatch<SetStateAction<SidebarItemsType>>;
+}) {
   const mathRef = useRef<MathfieldElement>(null);
   const isAllowAnalyse = useRef(false);
   useCustomPlaceholder("{\\huge\\text{Начните вводить выражения...}}", mathRef);
@@ -45,6 +60,7 @@ export function MathField({ formula }: { formula: string }) {
     mathRef.current.setValue(newLatex, {
       silenceNotifications: true,
     });
+    /* updateFormulas(); */
   }
 
   function insertFormula() {
@@ -53,14 +69,8 @@ export function MathField({ formula }: { formula: string }) {
     if (!mathField) return;
     mathField.focus();
     mathField.dispatchEvent(new FocusEvent("focus"));
-    const boxedFormula = ce.parse(formula.split(":=")[1]);
-    const symbols = boxedFormula.symbols;
 
-    const uninitialized = [];
-
-    for (const sym of symbols) {
-      if (!ce.lookupSymbol(sym)?.value) uninitialized.push(sym);
-    }
+    const uninitialized = getUninitSyms(ce, formula);
 
     const latex =
       uninitialized
@@ -78,11 +88,21 @@ export function MathField({ formula }: { formula: string }) {
     )} \\\\ ${latex}`;
     newLatex = Latex.toggleDispLines(newLatex, true);
 
-    console.log(newLatex);
-
     mathField.setValue(newLatex, {
       silenceNotifications: true,
     });
+  }
+
+  function updateFormulas() {
+    const newFormulas = formulas.slice(0, 3).map((el) => {
+      if (!el.latex) return el;
+      return {
+        ...el,
+        isCalcAvail: !getUninitSyms(ce, el.latex).length,
+      };
+    });
+
+    setAllFormulas(newFormulas);
   }
 
   useEffect(() => {
