@@ -54,8 +54,9 @@ export function MathField({
       if (expr.includes("=")) {
         let left = expr.split("=")[0];
         left = left.replace(
-          /(?<!\\)\b[a-zA-Z]{2,}\b/g,
-          (match) => `\\operatorname{${match}}`
+          /(\\operatorname\{[^{}]+\})|(?<!\\)\b([a-zA-Z]{2,})\b/g,
+          (match, isWrapped, unwrappedWord) =>
+            isWrapped ? match : `\\operatorname{${unwrappedWord}}`
         );
         const recalc = ce.parse(left).N();
         const right = recalc.isValid ? recalc.latex : "";
