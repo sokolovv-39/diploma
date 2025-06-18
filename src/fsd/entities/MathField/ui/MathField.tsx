@@ -33,7 +33,9 @@ export function MathField({
     mathRef
   );
 
-  function analyseMath(e: FormEvent<MathfieldElement>) {
+  function analyseMath(
+    e: FormEvent<MathfieldElement> | { currentTarget: MathfieldElement }
+  ) {
     if (!isAllowAnalyse.current) return;
     const mathField = mathRef.current;
     if (!mathField) return;
@@ -42,9 +44,11 @@ export function MathField({
 
     const latex = e.currentTarget.getValue();
 
+    console.log(latex);
+
     ce.forget(undefined);
 
-    const formattedLatex = Latex.toggleDispLines(latex, false);
+    let formattedLatex = Latex.toggleDispLines(latex, false);
     const exprs = formattedLatex.split(/(\\\\|\\quad)/);
     const recalcExprs = exprs.map((expr) => {
       if (expr.includes("=")) {
@@ -105,6 +109,8 @@ export function MathField({
       ranges: [[newStart, newEnd]],
       direction: oldSelection.direction ?? "none",
     };
+
+    console.log(mathField.getValue());
     /* updateFormulas(); */
   }
 
@@ -161,6 +167,10 @@ export function MathField({
   useEffect(() => {
     const mathField = mathRef.current;
 
+    if (mathField) {
+      analyseMath({ currentTarget: mathField! });
+    }
+
     function onBeforeInput(e: InputEvent) {
       if (e.inputType === "deleteContentBackward")
         isAllowAnalyse.current = false;
@@ -185,7 +195,7 @@ export function MathField({
         height: "100%",
       }}
     >
-      {latexDefault}
+      {/* {latexDefault} */}
     </math-field>
   );
 }
