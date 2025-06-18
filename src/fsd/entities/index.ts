@@ -1,1 +1,1 @@
-export { MathFieldDynamic, formulas } from "./MathField";
+export { MathFieldDynamic, formulas, rollingForceTemplate } from "./MathField";

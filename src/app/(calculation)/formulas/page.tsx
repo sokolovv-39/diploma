@@ -7,7 +7,7 @@ import { useState } from "react";
 import "mathlive/fonts.css";
 import "mathlive";
 
-export default function CalculationPage() {
+export default function FormulasPage() {
   const [formula, setFormula] = useState("");
   const [hoverFormula, setHoverFormula] = useState("");
   const [allFormulas, setAllFormulas] = useState(formulas);

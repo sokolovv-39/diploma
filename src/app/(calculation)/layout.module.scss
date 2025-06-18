@@ -1,24 +1,29 @@
 .wrapper {
+  margin: 0 var(--margin-width);
   .menu {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: 51px 51px;
-    button {
-      background-color: transparent;
+    .active {
+      background-color: rgba(34, 162, 249, 0.3);
+    }
+    .tab {
       outline: none;
       cursor: pointer;
+      text-decoration: none;
+      color: black;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       border: none;
       border-bottom: 1px solid #1472f4;
       border-right: 1px solid #1472f4;
       font-size: 20px;
     }
-    button:first-child {
-      background-color: rgba(34, 162, 249, 0.3);
-    }
-    button:nth-child(3n) {
+    .tab:nth-child(3n) {
       border-right: 0;
     }
-    button:hover {
+    .tab:hover {
       background-color: rgba(34, 162, 249, 0.1);
     }
   }

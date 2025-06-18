@@ -19,18 +19,27 @@ const ce = new ComputeEngine();
 export function MathField({
   formula,
   setAllFormulas,
+  latexDefault,
 }: {
-  formula: string;
-  setAllFormulas: Dispatch<SetStateAction<SidebarItemsType>>;
+  formula?: string;
+  setAllFormulas?: Dispatch<SetStateAction<SidebarItemsType>>;
+  latexDefault?: string;
 }) {
   const mathRef = useRef<MathfieldElement>(null);
   const isAllowAnalyse = useRef(false);
-  useCustomPlaceholder("{\\huge\\text{Начните вводить выражения...}}", mathRef);
+
+  useCustomPlaceholder(
+    "{\\Large\\text{Начните вводить выражения...}}",
+    mathRef
+  );
 
   function analyseMath(e: FormEvent<MathfieldElement>) {
     if (!isAllowAnalyse.current) return;
+    const mathField = mathRef.current;
+    if (!mathField) return;
 
-    if (!mathRef.current) return;
+    const oldSelection = mathField.selection;
+
     const latex = e.currentTarget.getValue();
 
     ce.forget(undefined);
@@ -40,16 +49,39 @@ export function MathField({
     const recalcExprs = exprs.map((expr) => {
       if (expr.includes("=")) {
         let left = expr.split("=")[0];
+        left = left.replace(
+          /(?<!\\)\b[a-zA-Z]{2,}\b/g,
+          (match) => `\\operatorname{${match}}`
+        );
         const recalc = ce.parse(left).N();
-        return left + "=" + recalc.value;
+        const right = recalc.isValid ? recalc.latex : "";
+        return left + "=" + right;
       } else if (expr.includes("\\coloneq")) {
-        const [lhsRaw, rhsRaw] = expr.split("\\coloneq").map((s) => s.trim());
-        const lhsExpr = ce.parse(lhsRaw);
-        if (lhsExpr.symbol == null) {
-          throw new Error(`Невозможно извлечь имя символа из ${lhsRaw}`);
-        }
+        let [lhsRaw, rhsRaw] = expr.split("\\coloneq").map((s) => s.trim());
         const rhs = ce.parse(rhsRaw).evaluate();
-        ce.defineSymbol(lhsExpr.symbol, {
+
+        let symbolName: string;
+        let subscript: string | null = null;
+
+        const subscriptMatch = lhsRaw.match(/^([^_]+)_([^{]+)$/);
+        if (subscriptMatch) {
+          symbolName = subscriptMatch[1];
+          subscript = subscriptMatch[2];
+        } else if (lhsRaw.includes("_{")) {
+          const parts = lhsRaw.split("_{");
+          symbolName = parts[0];
+          subscript = parts[1].replace("}", "");
+        } else {
+          symbolName = lhsRaw;
+          ce.parse(`\\operatorname{${lhsRaw}}\\coloneq ${rhs}`).evaluate();
+          return expr;
+        }
+
+        const fullSymbolName = subscript
+          ? `${symbolName}_${subscript}`
+          : symbolName;
+
+        ce.defineSymbol(fullSymbolName, {
           value: rhs,
         });
         return expr;
@@ -61,16 +93,27 @@ export function MathField({
 
     const newLatex = Latex.toggleDispLines(recalcExprs.join(""), true);
 
-    mathRef.current.setValue(newLatex, {
+    mathField.setValue(newLatex, {
       silenceNotifications: true,
     });
+
+    const deltaSelection = newLatex.length - latex.length;
+    const newStart = Math.max(0, oldSelection.ranges[0][0] + deltaSelection);
+    const newEnd = Math.max(0, oldSelection.ranges[0][1] + deltaSelection);
+
+    mathField.selection = {
+      ranges: [[newStart, newEnd]],
+      direction: oldSelection.direction ?? "none",
+    };
     /* updateFormulas(); */
   }
 
   function insertFormula() {
+    if (!formula) return;
     const mathField = mathRef.current;
 
     if (!mathField) return;
+
     mathField.focus();
     mathField.dispatchEvent(new FocusEvent("focus"));
 
@@ -98,6 +141,8 @@ export function MathField({
   }
 
   function updateFormulas() {
+    if (!setAllFormulas) return;
+
     const newFormulas = formulas.slice(0, 3).map((el) => {
       if (!el.latex) return el;
       return {
@@ -139,6 +184,8 @@ export function MathField({
         width: "100%",
         height: "100%",
       }}
-    ></math-field>
+    >
+      {latexDefault}
+    </math-field>
   );
 }

@@ -1,2 +1,2 @@
 export { MathFieldDynamic } from "./ui";
-export { formulas } from "./model";
+export { formulas, rollingForceTemplate } from "./model";

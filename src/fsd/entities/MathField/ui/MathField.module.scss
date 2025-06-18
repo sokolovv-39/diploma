@@ -2,6 +2,8 @@
   border: none;
   outline: none;
   position: relative;
+  font-size: 27px;
+  margin-top: 17px;
 }
 .mathfield::part(virtual-keyboard-toggle) {
   position: absolute;
