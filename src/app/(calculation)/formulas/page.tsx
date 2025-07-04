@@ -23,7 +23,7 @@ export default function FormulasPage() {
       <div className={classes.mathfield}>
         <MathFieldDynamic formula={formula} setAllFormulas={setAllFormulas} />
       </div>
-      <div className={classes.windows}>
+      {/* <div className={classes.windows}>
         <EditWindow
           title="Мой расчет 1"
           desc=""
@@ -34,7 +34,7 @@ export default function FormulasPage() {
           desc="12Х18Н9Т"
           styles={{ backgroundColor: "#1313F4", textColor: "#FFFFFF" }}
         />
-      </div>
+      </div> */}
       {hoverFormula && (
         <math-field read-only className={classes.hintMathfield}>
           {Latex.toggleDispLines(hoverFormula, true)}

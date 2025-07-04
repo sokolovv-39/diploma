@@ -1,0 +1,18 @@
+.wrapper {
+  display: flex;
+  gap: 45px;
+  button {
+    height: min-content;
+    color: white;
+    background-color: #1313f4;
+    padding: 10px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    margin-top: 27px;
+    font-size: 22px;
+  }
+  button:hover {
+    opacity: 0.5;
+  }
+}

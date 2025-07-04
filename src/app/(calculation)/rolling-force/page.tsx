@@ -4,8 +4,13 @@ import classes from "./page.module.scss";
 
 export default function RollingForcePage() {
   return (
-    <MathFieldDynamic
-      latexDefault={Latex.toggleDispLines(rollingForceTemplate, true)}
-    />
+    <div className={classes.wrapper}>
+      <div className={classes.mathfield}>
+        <MathFieldDynamic
+          latexDefault={Latex.toggleDispLines(rollingForceTemplate, true)}
+        />
+      </div>
+      <button>Добавить проход</button>
+    </div>
   );
 }

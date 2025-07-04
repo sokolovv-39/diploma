@@ -6,15 +6,18 @@
   margin-top: 17px;
 }
 .mathfield::part(virtual-keyboard-toggle) {
-  position: absolute;
+  /*   position: absolute;
   right: 328px;
-  top: 10px;
+  top: 10px; */
   scale: 2;
+  display: none;
+  margin-right: 20px;
 }
 
 .mathfield::part(menu-toggle) {
-  position: absolute;
+  display: none;
+  /*   position: absolute;
   right: 270px;
-  top: 10px;
+  top: 10px; */
   scale: 2;
 }

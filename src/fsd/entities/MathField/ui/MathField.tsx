@@ -168,9 +168,9 @@ export function MathField({
   useEffect(() => {
     const mathField = mathRef.current;
 
-    if (mathField) {
+    /* if (mathField) {
       analyseMath({ currentTarget: mathField! });
-    }
+    } */
 
     function onBeforeInput(e: InputEvent) {
       if (e.inputType === "deleteContentBackward")
@@ -185,17 +185,27 @@ export function MathField({
     };
   }, []);
 
+  const template =
+    "b:= \\quad R:= \\quad \\Delta h:=" +
+    " \\\\ " +
+    "F_к\\coloneq b\\sqrt{R\\Delta h}" +
+    " \\\\ " +
+    "P:=" +
+    " \\\\ " +
+    "p_{ср}\\coloneq\\frac{P}{F_к}";
+
   return (
     <math-field
       className={classes.mathfield}
       ref={mathRef}
       math-mode-space="\quad"
-      onInput={analyseMath}
+      /* onInput={analyseMath} */
       style={{
         width: "100%",
         height: "100%",
       }}
     >
+      {Latex.toggleDispLines(template, true)}
       {/* {latexDefault} */}
     </math-field>
   );

@@ -1,13 +1,15 @@
 export const rollingForceTemplate =
-  "h_{0}\\coloneq\\quad h_{1}\\coloneq\\quad F\\coloneq \\frac{l_{d}}{h_{ср}}" +
+  "\\mathit{Проход\\, 1}" +
   "\\\\" +
-  "\\Delta h\\coloneq \\quad l_{d}:=h_{ср}F" +
+  "h_{0}\\coloneq\\quad h_{1}\\coloneq\\quad b_{ср}\\coloneq\\quad F\\coloneq \\frac{l_{d}}{h_{ср}}" +
+  "\\\\" +
+  "h_{ср}\\coloneq\\frac{h_0 + h_1}{2}\\coloneq\\quad \\Delta h\\coloneq \\quad l_{d}:=h_{ср}F" +
   "\\\\" +
   "f\\coloneq" +
   "\\\\" +
   "\\delta \\coloneq 2f\\frac{l_{d}}{\\Delta h}" +
   "\\\\" +
-  "a\\coloneq {\\{\\frac{1+\\sqrt{1+(\\delta^2 -1)(\\frac{h_0}{h_1})}}{\\delta + 1}\\}}^{\\frac{1}{\\delta}}" +
+  "\\frac{h_\\gamma}{h_1}\\coloneq {\\{\\frac{1+\\sqrt{1+(\\delta^2 -1)(\\frac{h_0}{h_1})}}{\\delta + 1}\\}}^{\\frac{1}{\\delta}}" +
   "\\\\" +
   "\\sigma_{T} \\coloneq" +
   "\\\\" +
